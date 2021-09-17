@@ -25,11 +25,6 @@ router.post('/',
       res.status(400).render('upload', { user: req.user._json, error: 'File must be a PDF' });
       return;
     }
-    // verify user isn't very unoriginal
-    if (req.file.originalname.toLowerCase() === 'resume.pdf') {
-      res.status(400).render('upload', { user: req.user._json, error: 'Really? "resume.pdf"? C\'mon.' });
-      return;
-    }
     var id = hasha(req.file.buffer, {algorithm: 'md5'});
     // check if resume is already uploaded
     db.resumes.find(id)
