@@ -25,6 +25,11 @@ router.post('/',
       res.status(400).render('upload', { user: req.user._json, error: 'File must be a PDF' });
       return;
     }
+    // verify filename isn't resume.pdf
+    if (req.file.originalname.toLowerCase() === 'resume.pdf') {
+      res.status(400).render('upload', { user: req.user._json, error: 'You should change the file name from resume.pdf and resubmit' });
+      return;
+    }
     var id = hasha(req.file.buffer, {algorithm: 'md5'});
     // check if resume is already uploaded
     db.resumes.find(id)
