@@ -25,9 +25,9 @@ router.post('/',
       res.status(400).render('upload', { user: req.user._json, error: 'File must be a PDF' });
       return;
     }
-    // verify user isn't very unoriginal
+    // verify filename isn't resume.pdf
     if (req.file.originalname.toLowerCase() === 'resume.pdf') {
-      res.status(400).render('upload', { user: req.user._json, error: 'Really? "resume.pdf"? C\'mon.' });
+      res.status(400).render('upload', { user: req.user._json, error: 'You should change the file name from resume.pdf and resubmit' });
       return;
     }
     var id = hasha(req.file.buffer, {algorithm: 'md5'});
